@@ -1,0 +1,24 @@
+---
+title: "make_cities_tibble"
+output: html_document
+---
+
+```{r}
+library("readr")
+library("tidyverse")
+```
+
+
+```{r}
+
+swiss_cities = read_csv("../SwissCities.csv")
+swiss_cities_df = tibble(swiss_cities)
+
+```
+
+```{r}
+
+swiss_cities_df
+
+```
+

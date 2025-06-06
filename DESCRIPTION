@@ -16,12 +16,9 @@ Encoding: UTF-8
 Imports:
     ggplot2,
     dplyr,
-    sf,
-    # For spatial data manipulation
-    tidyr,
-    # For data tidying
-    httr,
-    # For handling API requests
+    sf, # For spatial data manipulation
+    tidyr, # For data tidying
+    httr, # For handling API requests
     jsonlite    # For handling JSON responses,
     httr2,
     roxygen2,

@@ -4,8 +4,28 @@ Title: What the Package Does (Title Case)
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "William", "Ambrosetti",
+      email = "william.ambrosetti@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Alessia", "Bernacchia",
+      email = "alessia.bernacchia@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Alessio", "Carnevale",
+      email = "alessio.carnevale@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Fernandez", "Sergio",
+      email = "sergio.fernandezdiz@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Federico", "Gritti",
+      email = "federico.gritti@student.supsi.ch",
       role = c("aut", "cre")
     )
   )

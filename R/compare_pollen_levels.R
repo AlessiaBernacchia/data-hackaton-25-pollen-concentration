@@ -10,6 +10,9 @@
 #' @export
 compare_pollen_levels <- function(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon) {
 
+  source("read_pollen_with_cache.R")
+
+
   df_city1 <- get_pollen_forecast_with_cache(city1_lat, city1_lon)
   df_city2 <- get_pollen_forecast_with_cache(city2_lat, city2_lon)
 
@@ -26,6 +29,7 @@ compare_pollen_levels <- function(city1_name, city2_name, city1_lat, city1_lon, 
     return("Both cities have the same pollen levels")
   }
 }
+
 
 # Example usage:
 city1_name <- "Zurich"

@@ -43,6 +43,10 @@ Imports:
     httr2,
     roxygen2,
     testthat,
-    knitr
+    knitr,
+    readr,
+    tibble,
+    magrittr,
+    terra
 LazyData: true
 RoxygenNote: 7.3.2

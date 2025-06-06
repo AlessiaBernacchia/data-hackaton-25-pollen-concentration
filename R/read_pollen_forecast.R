@@ -8,7 +8,10 @@
 #' @name get_pollen_forecast
 #'
 #' @examples
-#' df_test <- get_pollen_forecast(latitude=46.94, longitude=7.94)
+#' latitude <- 47.3769
+#' longitude <- 8.5417
+#'
+#'  df_test <- get_pollen_forecast(latitude, longitude)
 #'
 #' @export
 
@@ -55,10 +58,4 @@ get_pollen_forecast <- function(latitude, longitude) {
 }
 
 
-latitude <- 47.3769
-longitude <- 8.5417
-
-df <- get_pollen_forecast(latitude, longitude)
-print(df)
-#
 

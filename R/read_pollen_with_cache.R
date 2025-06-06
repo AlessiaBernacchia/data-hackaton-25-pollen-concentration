@@ -2,12 +2,12 @@ get_pollen_forecast_with_cache <- function(latitude, longitude) {
   dir.create("pollen_cache", showWarnings = FALSE)  # create cache dir if missing
   today <- Sys.Date()
   fname <- sprintf("pollen_cache/pollen_%.4f_%.4f_%s.rds", latitude, longitude, today)
-  
+
   # If cached file exists, read and return
   if (file.exists(fname)) {
     return(readRDS(fname))
   }
-  
+
   # Build URL
   url <- paste0(
     "https://pollen.googleapis.com/v1/forecast:lookup?",
@@ -16,12 +16,12 @@ get_pollen_forecast_with_cache <- function(latitude, longitude) {
     "&location.longitude=", longitude,
     "&days=1"
   )
-  
+
   # Try to request and parse API
   result <- tryCatch({
     response <- httr2::request(url) |> httr2::req_perform()
     content <- httr2::resp_body_json(response)
-    
+
     if (is.null(content$dailyInfo[[1]]$pollenTypeInfo)) {
       df <- data.frame()
     } else {
@@ -37,19 +37,19 @@ get_pollen_forecast_with_cache <- function(latitude, longitude) {
         )
       }))
     }
-    
+
     saveRDS(df, fname)  # Cache result
     return(df)
   }, error = function(e) {
     message("Error fetching or parsing data: ", e$message)
     return(data.frame())
   })
-  
+
   return(result)
 }
 
-latitude <- 47.3769
-longitude <- 8.5417
+# latitude <- 47.3769
+# longitude <- 8.5417
 
-df <- get_pollen_forecast(latitude, longitude)
-print(df)
+# df <- get_pollen_forecast(latitude, longitude)
+# print(df)

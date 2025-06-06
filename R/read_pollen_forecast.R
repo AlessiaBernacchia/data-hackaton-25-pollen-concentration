@@ -3,7 +3,7 @@
 #' @return A data.frame with pollen forecast data
 #' @export
 #' @name get_pollen_forecast
-#' 
+#'
 get_pollen_forecast <- function(latitude, longitude) {
   url <- paste0(
     "https://pollen.googleapis.com/v1/forecast:lookup?",
@@ -12,19 +12,19 @@ get_pollen_forecast <- function(latitude, longitude) {
     "&location.longitude=", longitude,
     "&days=1"
   )
-  
+
   # Try-catch for safety
   result <- tryCatch({
     response <- httr2::request(url) |> httr2::req_perform()
     content <- httr2::resp_body_json(response)
-    
+
     # Check if the pollen info exists
     if (is.null(content$dailyInfo[[1]]$pollenTypeInfo)) {
       return(data.frame())
     }
-    
+
     pollen_info <- content$dailyInfo[[1]]$pollenTypeInfo
-    
+
     df <- do.call(rbind, lapply(pollen_info, function(x) {
       # Use safe extraction with ifelse + is.null
       data.frame(
@@ -36,21 +36,21 @@ get_pollen_forecast <- function(latitude, longitude) {
         stringsAsFactors = FALSE
       )
     }))
-    
+
     return(df)
   }, error = function(e) {
     message("Error fetching or parsing data: ", e$message)
     return(data.frame())
   })
-  
+
   return(result)
 }
 
 
-latitude <- 47.3769
-longitude <- 8.5417
+# latitude <- 47.3769
+# longitude <- 8.5417
 
-df <- get_pollen_forecast(latitude, longitude)
-print(df)
-# 
+# df <- get_pollen_forecast(latitude, longitude)
+# print(df)
+#
 

@@ -1,10 +1,16 @@
+#' @title Getting the pollen data from the API
+#'
 #' @param latitude Latitude of the location
 #' @param longitude Longitude of the location
+#'
 #' @return A data.frame with pollen forecast data
-#' @export
+#'
 #' @name get_pollen_forecast
+#'
 #' @examples
 #' df_test <- get_pollen_forecast(latitude=46.94, longitude=7.94)
+#'
+#' @export
 
 get_pollen_forecast <- function(latitude, longitude) {
   url <- paste0(

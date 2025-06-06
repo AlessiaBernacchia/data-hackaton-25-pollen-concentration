@@ -11,22 +11,22 @@ Authors@R: c(
     person(
       "Alessia", "Bernacchia",
       email = "alessia.bernacchia@student.supsi.ch",
-      role = c("aut", "cre")
+      role = "aut"
     ),
     person(
       "Alessio", "Carnevale",
       email = "alessio.carnevale@student.supsi.ch",
-      role = c("aut", "cre")
+      role = "aut"
     ),
     person(
       "Fernandez", "Sergio",
       email = "sergio.fernandezdiz@student.supsi.ch",
-      role = c("aut", "cre")
+      role = "aut"
     ),
     person(
       "Federico", "Gritti",
       email = "federico.gritti@student.supsi.ch",
-      role = c("aut", "cre")
+      role = "aut"
     )
   )
 Description: More about what it does (maybe more than one line).
@@ -36,12 +36,13 @@ Encoding: UTF-8
 Imports:
     ggplot2,
     dplyr,
-    sf,       # For spatial data manipulation
-    tidyr,    # For data tidying
-    httr,     # For handling API requests
-    jsonlite  # For handling JSON responses,
+    sf,
+    tidyr,
+    httr,
+    jsonlite,
     httr2,
     roxygen2,
     testthat,
     knitr
 LazyData: true
+RoxygenNote: 7.3.2

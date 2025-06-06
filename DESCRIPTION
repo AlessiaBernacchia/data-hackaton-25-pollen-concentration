@@ -1,6 +1,6 @@
 Package: PollenDistributionSwiss
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Analyzing and Visualizing Pollen Distribution in Switzerland
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -13,4 +13,11 @@ Description: More about what it does (maybe more than one line).
     Continuation lines should be indented.
 License: What license is it under?
 Encoding: UTF-8
+Imports:
+    ggplot2,
+    dplyr,
+    sf,        # For spatial data manipulation
+    tidyr,      # For data tidying
+    httr,       # For handling API requests
+    jsonlite    # For handling JSON responses
 LazyData: true

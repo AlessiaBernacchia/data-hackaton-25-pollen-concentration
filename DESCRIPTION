@@ -4,22 +4,42 @@ Title: Analyzing and Visualizing Pollen Distribution in Switzerland
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "William", "Ambrosetti",
+      email = "william.ambrosetti@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Alessia", "Bernacchia",
+      email = "alessia.bernacchia@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Alessio", "Carnevale",
+      email = "alessio.carnevale@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Fernandez", "Sergio",
+      email = "sergio.fernandezdiz@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Federico", "Gritti",
+      email = "federico.gritti@student.supsi.ch",
       role = c("aut", "cre")
     )
   )
 Description: More about what it does (maybe more than one line).
     Continuation lines should be indented.
-License: What license is it under?
+License: GPL (>= 3)
 Encoding: UTF-8
 Imports:
     ggplot2,
     dplyr,
-    sf, # For spatial data manipulation
-    tidyr, # For data tidying
-    httr, # For handling API requests
-    jsonlite    # For handling JSON responses,
+    sf,       # For spatial data manipulation
+    tidyr,    # For data tidying
+    httr,     # For handling API requests
+    jsonlite  # For handling JSON responses,
     httr2,
     roxygen2,
     testthat,

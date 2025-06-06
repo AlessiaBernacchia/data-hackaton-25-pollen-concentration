@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #' @title Get data pollen of a given city
 #'
 #' @param list_cities list of cities in a string form
@@ -17,10 +18,8 @@
 #' @export
 #'
 
-devtools::load_all()
-#source("read_pollen_with_cache.R")
 
-get_pollin_for_list_cities <- function(list_cities, PATH="SwissCities.csv") {
+get_pollen_for_list_cities <- function(list_cities, PATH="SwissCities.csv") {
 
   swiss_cities <- readr::read_csv(PATH)
   swiss_cities_df <- tibble::tibble(swiss_cities)

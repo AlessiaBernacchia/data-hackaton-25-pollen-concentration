@@ -1,6 +1,6 @@
 ---
-title: "Pollen Forecast Analysis"
-author: "Your Name"
+title: "Swiss Pollen Forecast Analysis"
+author: "William Ambrosetti"
 output: html_document
 ---
 

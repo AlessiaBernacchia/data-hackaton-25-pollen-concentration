@@ -16,26 +16,20 @@
 #' @export
 #'
 
-library("readr")
-library("tidyverse")
+
 source("read_pollen_with_cache.R")
 
-library("readr")
-library("tidyverse")
+get_pollin_for_list_cities <- function(list_cities) {
 
-get_pollen_for_list_cities <- function(list_cities) {
+  swiss_cities <- readr::read_csv("SwissCities.csv")
+  swiss_cities_df <- tibble::tibble(swiss_cities)
 
-  swiss_cities = read_csv("SwissCities.csv")
-  swiss_cities_df = tibble(swiss_cities)
-
-
-
-  pollen_level_df <- tibble()
+  pollin_level_df <- tibble::tibble()
 
   for (city in list_cities) {
 
     # Get city info once
-    city_info <- swiss_cities_df |> filter(city == !!city)
+    city_info <- dplyr::filter(swiss_cities_df, city == !!city)
 
     lat <- city_info$lat
     lng <- city_info$lng
@@ -44,12 +38,12 @@ get_pollen_for_list_cities <- function(list_cities) {
     # Get pollen data
     pollen_data <- get_pollen_forecast_with_cache(latitude = lat, longitude = lng)
 
-    grs_pol <- pollen_data |> filter(plant == "Grass") |> pull(index_value)
-    tree_pol <- pollen_data |> filter(plant == "Tree") |> pull(index_value)
-    weed_pol <- pollen_data |> filter(plant == "Weed") |> pull(index_value)
+    grs_pol <- dplyr::filter(pollen_data, plant == "Grass") |> dplyr::pull(index_value)
+    tree_pol <- dplyr::filter(pollen_data, plant == "Tree") |> dplyr::pull(index_value)
+    weed_pol <- dplyr::filter(pollen_data, plant == "Weed") |> dplyr::pull(index_value)
 
     # Create new row
-    new_row <- tibble(
+    new_row <- tibble::tibble(
       city = city,
       canton = cant,
       lat = lat,
@@ -60,10 +54,8 @@ get_pollen_for_list_cities <- function(list_cities) {
     )
 
     # Append to final dataframe
-    pollen_level_df <- bind_rows(pollen_level_df, new_row)
+    pollin_level_df <- dplyr::bind_rows(pollin_level_df, new_row)
   }
 
   return(pollen_level_df)
 }
-
-

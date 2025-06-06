@@ -1,6 +1,28 @@
-#' @param polline_df pollin df
-#' @param pollen_type pollen type (tree, weed, grass)
+#' @title Calculation of average pollen by canton
+#'
+#' @param polline_df A data frame containing pollen concentration data, including canton names
+#'        and numeric columns for each pollen type (e.g., grass_pollin, tree_pollin, etc.).
+#' @param pollen_type Character string indicating the type of pollen to visualize.
+#'        Must correspond to a column prefix in polline_df (e.g., "grass", "tree", or "weed").
+#'
 #' @return plot of most prominent pollin on the swiss map
+#'
+#' @description
+#' This function takes a data frame with pollen concentration data and generates
+#' a thematic map of Switzerland, showing the average concentration of a specific
+#' pollen type (tree, weed, or grass) across cantons. It overlays the pollen data
+#' on top of canton shapefiles and lakes for context.
+#'
+#'
+#' @examples
+#' df <- data.frame(canton = c("Zürich", "Bern"),
+#'                  grass_pollin = c(30, 50),
+#'                  tree_pollin = c(10, 20),
+#'                  weed_pollin = c(5, 15))
+#'
+#' plot_specific_pollen(df, pollen_type = "grass")
+#'
+#'
 #' @export
 
 

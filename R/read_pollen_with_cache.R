@@ -1,3 +1,22 @@
+#' @title Read data from the API, uses caching
+#'
+#' @param latitude Latitude of the location
+#' @param longitude Longitude of the location
+#'
+#' @return A data.frame with pollen forecast data
+#'
+#' @description
+#' Checks if a file with the requested data exists, if so it uses that file to return the requested data,
+#' otherwise it makes an API call.
+#'
+#' @examples
+#' latitude <- 47.3769
+#' longitude <- 8.5417
+#'
+#' df_test <- get_pollen_forecast_with_cache(latitude, longitude)
+#'
+#' @name get_pollen_forecast_with_cache
+#' @export
 get_pollen_forecast_with_cache <- function(latitude, longitude) {
   dir.create("pollen_cache", showWarnings = FALSE)  # create cache dir if missing
   today <- Sys.Date()
@@ -48,8 +67,8 @@ get_pollen_forecast_with_cache <- function(latitude, longitude) {
   return(result)
 }
 
-# latitude <- 47.3769
-# longitude <- 8.5417
+latitude <- 47.3769
+longitude <- 8.5417
 
-# df <- get_pollen_forecast(latitude, longitude)
-# print(df)
+df <- get_pollen_forecast_with_cache(latitude, longitude)
+print(df)

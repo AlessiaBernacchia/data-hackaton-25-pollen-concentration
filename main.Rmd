@@ -20,7 +20,9 @@ This R Markdown document showcases various functions related to pollen forecast 
 
 This function retrieves pollen data for a specific latitude and longitude, with caching for faster future requests. The cache ensures that if the data has already been fetched recently, an API call is avoided.
 
-### Example
+```{r}
+devtools::install("R/")
+```
 
 ```{r get_pollen_forecast_with_cache}
 # Example coordinates for Zurich
@@ -43,7 +45,7 @@ city_list <- data.frame(
 )
 
 # Call the function
-df_all_cities <- get_pollin_for_list_cities(city_list)
+df_all_cities <- get_pollin_for_list_cities(city_list, "SwissCities.csv")
 
 # Show the result
 head(df_all_cities)

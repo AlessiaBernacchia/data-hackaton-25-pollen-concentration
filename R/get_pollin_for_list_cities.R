@@ -1,6 +1,7 @@
 #' @title Get data pollen of a given city
 #'
 #' @param list_cities list of cities in a string form
+#' @param PATH path of the cities file
 #'
 #' @return A tibble with city name, canton, lat, lng, pollin level
 #'
@@ -19,9 +20,9 @@
 devtools::load_all()
 #source("read_pollen_with_cache.R")
 
-get_pollin_for_list_cities <- function(list_cities) {
+get_pollin_for_list_cities <- function(list_cities, PATH="SwissCities.csv") {
 
-  swiss_cities <- readr::read_csv("SwissCities.csv")
+  swiss_cities <- readr::read_csv(PATH)
   swiss_cities_df <- tibble::tibble(swiss_cities)
 
   pollin_level_df <- tibble::tibble()

@@ -16,8 +16,8 @@
 #' @export
 #'
 
-
-source("read_pollen_with_cache.R")
+devtools::load_all()
+#source("read_pollen_with_cache.R")
 
 get_pollin_for_list_cities <- function(list_cities) {
 

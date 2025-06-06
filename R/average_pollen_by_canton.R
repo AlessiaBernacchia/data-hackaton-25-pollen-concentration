@@ -25,12 +25,14 @@
 #'
 #' @export
 
+plot_specific_pollen <- function(polline_df, pollen_type = "grass", PATH='2025_GEOM_TK') {
+  world_path = paste0(PATH, '/01_INST/Gesamtfla╠êche_gf/K4_kant20220101_gf/K4kant20220101gf_ch2007Poly.shp')
+  l_path = paste0(PATH, '/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd11_ch2007Poly.shp' )
 
-world <- sf::read_sf('2025_GEOM_TK/01_INST/Gesamtfla╠êche_gf/K4_kant20220101_gf/K4kant20220101gf_ch2007Poly.shp')
-l1    <- sf::st_read('2025_GEOM_TK/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd11_ch2007Poly.shp')
-l2    <- sf::st_read('2025_GEOM_TK/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd22_ch2007Poly.shp')
+  world <- sf::read_sf(world_path)
+  l1    <- sf::st_read(l_path)
+  l2    <- sf::st_read(l_path)
 
-plot_specific_pollen <- function(polline_df, pollen_type = "grass") {
   pollen_col <- paste0(pollen_type, "_pollin")
 
   avg_df <- dplyr::group_by(polline_df, canton) |>

@@ -1,13 +1,28 @@
 #' @title Compare pollen levels between two cities
+#'
 #' @param city1_name Name of the first city
 #' @param city2_name Name of the second city
 #' @param city1_lat Latitude of the first city
 #' @param city1_lon Longitude of the first city
 #' @param city2_lat Latitude of the second city
 #' @param city2_lon Longitude of the second city
+#'
 #' @return A string with the name of the city that has the least pollen
+#'
 #' @name compare_pollen_levels
+#'
+#' @example
+#' city1_name <- "Zurich"
+#' city1_lat <- 47.3769
+#' city1_lon <- 8.5417
+#'
+#' city2_name <- "Geneva"
+#' city2_lat <- 46.2044
+#' city2_lon <- 6.1432
+#' result <- compare_pollen_levels(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon)
+#'
 #' @export
+
 compare_pollen_levels <- function(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon) {
 
   source("R/read_pollen_with_cache.R")
@@ -29,15 +44,3 @@ compare_pollen_levels <- function(city1_name, city2_name, city1_lat, city1_lon, 
   }
 }
 
-
-# Example usage:
-city1_name <- "Zurich"
-city1_lat <- 47.3769
-city1_lon <- 8.5417
-
-city2_name <- "Geneva"
-city2_lat <- 46.2044
-city2_lon <- 6.1432
-
-result <- compare_pollen_levels(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon)
-print(result)

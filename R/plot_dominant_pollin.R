@@ -1,5 +1,15 @@
+#' @title Plot the Pollins in the Swiss Map
+#'
 #' @param polline_df pollin df
+#'
 #' @return plot of most prominent pollin on the swiss map
+#'
+#' @description Plots the distribution of the pollines across the cities given
+#'
+#' @examples
+#' city_df <- get_pollen_for_list_cities(c("Geneva", "Lugano"))
+#' plot_most_canton(city_df)
+#'
 #' @export
 
 library(sf)

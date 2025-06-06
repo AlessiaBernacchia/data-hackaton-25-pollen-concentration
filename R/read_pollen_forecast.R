@@ -7,11 +7,15 @@
 #'
 #' @name get_pollen_forecast
 #'
+#' @description
+#' Load the forecast data about pollution of today, in the given latitude and longitude.
+#'
+#'
 #' @examples
 #' latitude <- 47.3769
 #' longitude <- 8.5417
 #'
-#'  df_test <- get_pollen_forecast(latitude, longitude)
+#' df_test <- get_pollen_forecast(latitude, longitude)
 #'
 #' @export
 

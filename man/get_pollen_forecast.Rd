@@ -18,6 +18,9 @@ A data.frame with pollen forecast data
 Getting the pollen data from the API
 }
 \examples{
-df_test <- get_pollen_forecast(latitude=46.94, longitude=7.94)
+latitude <- 47.3769
+longitude <- 8.5417
+
+ df_test <- get_pollen_forecast(latitude, longitude)
 
 }

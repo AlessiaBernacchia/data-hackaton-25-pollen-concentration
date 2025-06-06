@@ -3,9 +3,13 @@
 #' @return tibble with city name, canton, lat, lng, pollin level
 #' @export
 
+
+library("readr")
+library("tidyverse")
+
 get_pollin_for_list_cities <- function(list_cities) {
 
-  swiss_cities = read_csv("../SwissCities.csv")
+  swiss_cities = read_csv("SwissCities.csv")
   swiss_cities_df = tibble(swiss_cities)
 
   source("read_pollen_with_cache.R")

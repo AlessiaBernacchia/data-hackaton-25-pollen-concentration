@@ -3,9 +3,6 @@
 \name{get_pollen_for_list_cities}
 \alias{get_pollen_for_list_cities}
 \title{Get data pollen of a given city}
-\usage{
-get_pollen_for_list_cities(list_cities, PATH = "SwissCities.csv")
-}
 \arguments{
 \item{list_cities}{list of cities in a string form}
 

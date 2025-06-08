@@ -1,0 +1,45 @@
+Package: PollenDistributionSwiss
+Type: Package
+Title: Analyzing and Visualizing Pollen Distribution in Switzerland
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "William", "Ambrosetti",
+      email = "william.ambrosetti@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Alessia", "Bernacchia",
+      email = "alessia.bernacchia@student.supsi.ch",
+      role = "aut"
+    ),
+    person(
+      "Alessio", "Carnevale",
+      email = "alessio.carnevale@student.supsi.ch",
+      role = "aut"
+    ),
+    person(
+      "Fernandez", "Sergio",
+      email = "sergio.fernandezdiz@student.supsi.ch",
+      role = "aut"
+    ),
+    person(
+      "Federico", "Gritti",
+      email = "federico.gritti@student.supsi.ch",
+      role = "aut"
+    )
+  )
+Author: See Authors@R
+Maintainer: William Ambrosetti <william.ambrosetti@student.supsi.ch>
+Depends: R (>= 4.1.0)
+Imports: dplyr, sf, ggplot2, httr, jsonlite, httr2, knitr, readr,
+        tibble, tidyr, utils
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: GPL (>= 3)
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2025-06-08 13:37:42 UTC; fjg
+Built: R 4.5.0; ; 2025-06-08 13:37:43 UTC; unix

@@ -1,0 +1,63 @@
+---
+title: "PollenDistributionSwiss - Quick Guide"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(PollenDistributionSwiss)
+```
+
+# Introduction
+
+This vignette demonstrates the main functions of the PollenDistributionSwiss package, which helps analyze and visualize pollen distribution in Switzerland.
+
+## 1. Data Collection
+
+First, let's get pollen data for some Swiss cities:
+
+```{r get_data}
+# Get pollen data for Geneva and Lugano
+cities <- c("Geneva", "Lugano")
+pollen_data <- get_pollen_for_list_cities(cities)
+
+# Look at the structure of the data
+str(pollen_data)
+```
+
+## 2. Data Visualization
+
+### Plot Most Common Pollen by Canton
+
+```{r plot_most_canton}
+# Plot the most common pollen types by canton
+plot_most_canton()
+```
+
+### Plot Specific Pollen Type
+
+```{r plot_specific}
+# Plot a specific pollen type (e.g., "Birch")
+plot_specific_pollen("Birch")
+```
+
+### Compare Pollen Levels Between Cities
+
+```{r compare_cities}
+# Compare pollen levels between Geneva and Lugano
+compare_pollen_levels("Geneva", "Lugano")
+```
+
+### Get Pollen Forecast
+
+```{r forecast}
+# Get pollen forecast for Geneva
+forecast <- get_pollen_forecast("Geneva")
+print(forecast)
+```
+
+## Notes
+
+- All functions return data in a format ready for analysis
+- Plots are styled for clarity and readability
+- Data caching is implemented for better performance 

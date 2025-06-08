@@ -1,0 +1,6 @@
+compare_pollen_levels	compare_pollen_levels
+get_pollen_forecast	get_pollen_forecast
+get_pollen_forecast_with_cache	get_pollen_forecast_with_cache
+get_pollen_for_list_cities	get_pollen_for_list_cities
+plot_most_canton	plot_most_canton
+plot_specific_pollen	plot_specific_pollen

@@ -1,3 +1,5 @@
+utils::globalVariables('.data')
+
 #' @title Calculation of average pollen by canton
 #'
 #' @param polline_df A data frame containing pollen concentration data, including canton names

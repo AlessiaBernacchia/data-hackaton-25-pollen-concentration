@@ -1,0 +1,274 @@
+\nonstopmode{}
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\makeatletter\@ifl@t@r\fmtversion{2018/04/01}{}{\usepackage[utf8]{inputenc}}\makeatother
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `PollenDistributionSwiss'}}
+\par\bigskip{\large \today}
+\end{center}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {PollenDistributionSwiss: Analyzing and Visualizing Pollen Distribution in Switzerland}}}{}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdfauthor = {William Ambrosetti; Alessia Bernacchia; Alessio Carnevale; Fernandez Sergio; Federico Gritti}}}{}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Analyzing and Visualizing Pollen Distribution in Switzerland}
+\item[Version]\AsIs{0.1.0}
+\item[Author]\AsIs{See Authors@R}
+\item[Maintainer]\AsIs{William Ambrosetti }\email{william.ambrosetti@student.supsi.ch}\AsIs{}
+\item[Depends]\AsIs{R (>= 4.1.0)}
+\item[Description]\AsIs{More about what it does (maybe more than one line).
+Continuation lines should be indented.}
+\item[License]\AsIs{GPL (>= 3)}
+\item[Encoding]\AsIs{UTF-8}
+\item[Imports]\AsIs{ggplot2, dplyr, sf, tidyr, httr, jsonlite, httr2, testthat,
+knitr, readr, tibble, magrittr, terra, utils}
+\item[RoxygenNote]\AsIs{7.3.2}
+\end{description}
+\Rdcontents{Contents}
+\HeaderA{compare\_pollen\_levels}{Compare pollen levels between two cities}{compare.Rul.pollen.Rul.levels}
+%
+\begin{Description}
+Compare pollen levels between two cities
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+compare_pollen_levels(
+  city1_name,
+  city2_name,
+  city1_lat,
+  city1_lon,
+  city2_lat,
+  city2_lon
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{city1\_name}] Name of the first city
+
+\item[\code{city2\_name}] Name of the second city
+
+\item[\code{city1\_lat}] Latitude of the first city
+
+\item[\code{city1\_lon}] Longitude of the first city
+
+\item[\code{city2\_lat}] Latitude of the second city
+
+\item[\code{city2\_lon}] Longitude of the second city
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A string with the name of the city that has the least pollen
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+city1_name <- "Zurich"
+city1_lat <- 47.3769
+city1_lon <- 8.5417
+
+city2_name <- "Geneva"
+city2_lat <- 46.2044
+city2_lon <- 6.1432
+result <- compare_pollen_levels(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{get\_pollen\_forecast}{Getting the pollen data from the API}{get.Rul.pollen.Rul.forecast}
+%
+\begin{Description}
+Load the forecast data about pollution of today, in the given latitude and longitude.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_pollen_forecast(latitude, longitude)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{latitude}] Latitude of the location
+
+\item[\code{longitude}] Longitude of the location
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A data.frame with pollen forecast data
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+latitude <- 47.3769
+longitude <- 8.5417
+
+df_test <- get_pollen_forecast(latitude, longitude)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{get\_pollen\_forecast\_with\_cache}{Read data from the API, uses caching}{get.Rul.pollen.Rul.forecast.Rul.with.Rul.cache}
+%
+\begin{Description}
+Checks if a file with the requested data exists, if so it uses that file to return the requested data,
+otherwise it makes an API call.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_pollen_forecast_with_cache(
+  latitude,
+  longitude,
+  PATH = "pollen_cache/pollen_%.4f_%.4f_%s.rds"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{latitude}] Latitude of the location
+
+\item[\code{longitude}] Longitude of the location
+
+\item[\code{PATH}] path to the cache
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A data.frame with pollen forecast data
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+latitude <- 47.3769
+longitude <- 8.5417
+
+df_test <- get_pollen_forecast_with_cache(latitude, longitude)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{get\_pollen\_for\_list\_cities}{Get data pollen of a given city}{get.Rul.pollen.Rul.for.Rul.list.Rul.cities}
+%
+\begin{Description}
+Retrieve information about the pollen of given cities
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_pollen_for_list_cities(list_cities, PATH = "SwissCities.csv")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{list\_cities}] list of cities in a string form
+
+\item[\code{PATH}] path of the cities file
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A tibble with city name, canton, lat, lng, pollin level
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+tibble_test <- get_pollen_for_list_cities(c("Lugano", "Geneva"), "SwissCities.csv")
+
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{plot\_most\_canton}{Plot the Pollins in the Swiss Map}{plot.Rul.most.Rul.canton}
+%
+\begin{Description}
+Plots the distribution of the pollines across the cities given
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+plot_most_canton(polline_df, PATH = "2025_GEOM_TK")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{polline\_df}] pollin df
+
+\item[\code{PATH}] path for the folder
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+plot of most prominent pollin on the swiss map
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+city_df <- get_pollen_for_list_cities(c("Geneva", "Lugano"))
+plot_most_canton(city_df)
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{plot\_specific\_pollen}{Calculation of average pollen by canton}{plot.Rul.specific.Rul.pollen}
+%
+\begin{Description}
+This function takes a data frame with pollen concentration data and generates
+a thematic map of Switzerland, showing the average concentration of a specific
+pollen type (tree, weed, or grass) across cantons. It overlays the pollen data
+on top of canton shapefiles and lakes for context.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+plot_specific_pollen(
+  polline_df,
+  pollen_type = "grass",
+  PATH_map = "2025_GEOM_TK"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{polline\_df}] A data frame containing pollen concentration data, including canton names
+and numeric columns for each pollen type (e.g., grass\_pollin, tree\_pollin, etc.).
+
+\item[\code{pollen\_type}] Character string indicating the type of pollen to visualize.
+Must correspond to a column prefix in polline\_df (e.g., "grass", "tree", or "weed").
+
+\item[\code{PATH\_map}] path for map directory
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+plot of most prominent pollin on the swiss map
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+df <- data.frame(canton = c("Zürich", "Bern"),
+                 grass_pollin = c(30, 50),
+                 tree_pollin = c(10, 20),
+                 weed_pollin = c(5, 15))
+
+plot_specific_pollen(df, pollen_type = "grass", PATH='2025_GEOM_TK')
+
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

@@ -1,16 +1,14 @@
-#' @title Read data from the API, uses caching
+#' @title Read data from the API (no caching)
 #'
 #' @param latitude Latitude of the location
 #' @param longitude Longitude of the location
-#' @param PATH path to the cache
 #'
 #' @return A data.frame with pollen forecast data
 #'
 #' @name get_pollen_forecast_with_cache
 #'
 #' @description
-#' Checks if a file with the requested data exists, if so it uses that file to return the requested data,
-#' otherwise it makes an API call.
+#' Fetches pollen forecast data from the API for the given location.
 #'
 #' @examples
 #' latitude <- 47.3769
@@ -20,20 +18,11 @@
 #'
 #' @export
 
-get_pollen_forecast_with_cache <- function(latitude, longitude, PATH="pollen_cache/pollen_%.4f_%.4f_%s.rds") {
-  dir.create("pollen_cache", showWarnings = FALSE)  # create cache dir if missing
-  today <- Sys.Date()
-  fname <- sprintf(PATH, latitude, longitude, today)
-
-  # If cached file exists, read and return
-  if (file.exists(fname)) {
-    return(readRDS(fname))
-  }
-
+get_pollen_forecast_with_cache <- function(latitude, longitude) {
   # Build URL
   url <- paste0(
     "https://pollen.googleapis.com/v1/forecast:lookup?",
-    "key=", "AIzaSyABklcoTHFHA6Io2jCAZjHGUc4jphZB4RM",
+    "key=AIzaSyABklcoTHFHA6Io2jCAZjHGUc4jphZB4RM",
     "&location.latitude=", latitude,
     "&location.longitude=", longitude,
     "&days=1"
@@ -59,8 +48,6 @@ get_pollen_forecast_with_cache <- function(latitude, longitude, PATH="pollen_cac
         )
       }))
     }
-
-    saveRDS(df, fname)  # Cache result
     return(df)
   }, error = function(e) {
     message("Error fetching or parsing data: ", e$message)

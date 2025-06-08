@@ -1,102 +1,85 @@
 ---
-title: "Swiss Pollen Forecast Analysis"
-author: "William Ambrosetti"
+title: "PollenDistributionSwiss - Quick Guide"
 output: html_document
 ---
 
-## Introduction
-
-This R Markdown document showcases various functions related to pollen forecast analysis. The following functions are demonstrated:
-
-- `get_pollen_forecast_with_cache()`: Fetches pollen data for a given location, caching the results for faster future requests.
-- `get_pollin_for_list_cities()`: Retrieves pollen data for multiple cities and combines them into one data frame.
-- `plot_specific_pollen()`: Creates a plot for a specific pollen type (e.g., tree, grass, or weed).
-- `plot_most_canton()`: Visualizes which canton has the most pollen across all cities.
-- `compare_pollen_levels()`: Compares the pollen levels between two cities and identifies which one has the least pollen.
-
-## Function 1: `get_pollen_forecast_with_cache()`
-
-### Description
-
-This function retrieves pollen data for a specific latitude and longitude, with caching for faster future requests. The cache ensures that if the data has already been fetched recently, an API call is avoided.
-
-```{r}
-devtools::install("R/")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(PollenDistributionSwiss)
 ```
 
-```{r get_pollen_forecast_with_cache}
-# Example coordinates for Zurich
-latitude <- 47.3769
-longitude <- 8.5417
+# Introduction
 
-# Call the function
-df_pollen <- get_pollen_forecast_with_cache(latitude, longitude)
+This document demonstrates the main functions of the PollenDistributionSwiss package, which helps analyze and visualize pollen distribution in Switzerland.
 
-# Show the result
-head(df_pollen)
+## 1. Get Pollen Forecast Data
+
+First, let's get real pollen forecast data for Swiss cities:
+
+```{r get_forecast_data}
+# Get pollen data for multiple Swiss cities
+cities <- c("Geneva", "Lugano", "Bern")
+pollen_data <- get_pollen_for_list_cities(cities, "SwissCities.csv")
+
+# Look at the structure of the data
+print("Pollen data structure:")
+str(pollen_data)
+print("Pollen data:")
+print(pollen_data)
 ```
 
-```{r get_pollin_for_list_cities}
-# Example list of cities with coordinates
-city_list <- data.frame(
-  city_name = c("Zurich", "Geneva", "Bern"),
-  latitude = c(47.3769, 46.2044, 46.9481),
-  longitude = c(8.5417, 6.1432, 7.4474)
-)
-
-# Call the function
-df_all_cities <- get_pollin_for_list_cities(city_list, "SwissCities.csv")
-
-# Show the result
-head(df_all_cities)
+```{r get_specific_forecast}
+# Get detailed forecast for Geneva (coordinates)
+geneva_forecast <- get_pollen_forecast(46.2044, 6.1432)
+print("Geneva detailed forecast:")
+print(geneva_forecast)
 ```
 
-```{r plot_specific_pollen}
-# Example pollen data frame (you can replace this with actual data)
-plot_specific_pollen(df_pollen, pollen_type = "tree")
-```
+## 2. Data Visualization with Package Functions
+
+Now let's use the forecast data with our plotting functions:
+
+### Plot Most Common Pollen by Canton
 
 ```{r plot_most_canton}
-# Example pollen data frame
-plot_most_canton(df_pollen)
+# Plot the most common pollen types by canton using our data
+plot_most_canton(pollen_data)
 ```
 
-```{r compare_pollen_levels}
-# Example coordinates for two cities
-city1_name <- "Zurich"
-city1_lat <- 47.3769
-city1_lon <- 8.5417
+### Compare Pollen Levels Between Cities
 
-city2_name <- "Geneva"
-city2_lat <- 46.2044
-city2_lon <- 6.1432
+```{r compare_cities}
+# Compare pollen levels between Geneva and Lugano using coordinates
+geneva_lat <- 46.2044
+geneva_lon <- 6.1432
+lugano_lat <- 46.0037
+lugano_lon <- 8.9511
 
-# Call the function to compare
-result <- compare_pollen_levels(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon)
-result
+comparison_result <- compare_pollen_levels("Geneva", "Lugano", 
+                                         geneva_lat, geneva_lon, 
+                                         lugano_lat, lugano_lon)
+print(comparison_result)
 ```
 
+## 3. Data Analysis Summary
 
-### Key Elements in the R Markdown:
-1. **YAML Header**:
-   - The header section at the top sets the title and output type (in this case, an HTML document). You can adjust this to your preference (PDF, Word, etc.).
-   
-2. **Function Documentation**:
-   - For each function, I’ve included a **description** of what the function does, followed by an **example** that shows how to use it.
-   
-3. **R Code Chunks**:
-   - Each example is enclosed in an R code chunk using triple backticks with `{r}`. This allows R to execute the code and show the results (data frames, plots, etc.) inline in the document.
+```{r data_summary}
+# Summary of pollen levels by city
+print("Pollen levels summary:")
+if(nrow(pollen_data) > 0) {
+  print(paste("Cities analyzed:", paste(pollen_data$city, collapse = ", ")))
+  print(paste("Average grass pollen:", round(mean(pollen_data$grass_pollin, na.rm = TRUE), 2)))
+  print(paste("Average tree pollen:", round(mean(pollen_data$tree_pollin, na.rm = TRUE), 2)))
+  
+  # Find city with highest grass pollen
+  max_grass_city <- pollen_data$city[which.max(pollen_data$grass_pollin)]
+  print(paste("City with highest grass pollen:", max_grass_city))
+}
+```
 
-4. **Plots and Visualizations**:
-   - The `plot_specific_pollen()` and `plot_most_canton()` functions generate visualizations. These can be graphs or maps, depending on your function's implementation.
+## Notes
 
-### Rendering the R Markdown:
-1. **Knit the document**: Once your R Markdown file is complete, you can "knit" it by clicking the **Knit** button in RStudio, which will generate the HTML output.
-   
-2. **Ensure Packages**: Make sure you have installed any necessary packages (like `ggplot2`, `httr2`, `dplyr`, etc.) using `install.packages()` if needed.
-
-### Additional Notes:
-- **Function Output**: For functions like `plot_specific_pollen()` and `plot_most_canton()`, the plots will be displayed directly in the knitted output.
-- **Cache Handling**: When showcasing caching in `get_pollen_forecast_with_cache()`, ensure that the cache file exists or that the function is capable of handling first-time calls.
-
-Let me know if you need help with any specific part of this, or if you'd like me to refine any sections further!
+-   All functions return real-time data from the Google Pollen API
+-   Data is cached for better performance
+-   Plots show current pollen distribution across Swiss cities
+-   Data includes grass, tree, and weed pollen levels

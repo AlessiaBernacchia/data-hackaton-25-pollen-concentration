@@ -15,12 +15,6 @@
 #'@import httr
 #'@import jsonlite
 #'@import knitr
-#'@import magrittr
-#'@import roxygen2
-#'@import terra
-#'@import testthat
-#'@import dplyr
-#'@import sf
 #'@name plot_most_canton
 #'
 #' @export
@@ -63,5 +57,5 @@ plot_most_canton <- function(polline_df, PATH='2025_GEOM_TK') {
     ggplot2::theme_minimal()
 }
 
-utils::globalVariables(c("type", "canton", "val", "mean_val", "name", "index_value", "plant", "pollen_level_df"))
+utils::globalVariables(c("type", "canton", "val", "mean_val", "name", "plant", "pollen_level_df"))
 

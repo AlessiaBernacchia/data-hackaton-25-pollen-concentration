@@ -19,6 +19,7 @@
 #' @export
 #'
 
+utils::globalVariables(c("index_value", "plant"))
 
 get_pollen_for_list_cities <- function(list_cities, PATH="SwissCities.csv") {
 
@@ -38,7 +39,6 @@ get_pollen_for_list_cities <- function(list_cities, PATH="SwissCities.csv") {
 
     # Get pollen data
     pollen_data <- get_pollen_forecast_with_cache(latitude = lat, longitude = lng)
-    utils::globalVariables("plant", "index_value", "pollen_level_df")
 
     grs_pol <- dplyr::filter(pollen_data, plant == "Grass") |> dplyr::pull(index_value)
     tree_pol <- dplyr::filter(pollen_data, plant == "Tree") |> dplyr::pull(index_value)
@@ -59,5 +59,5 @@ get_pollen_for_list_cities <- function(list_cities, PATH="SwissCities.csv") {
     pollin_level_df <- dplyr::bind_rows(pollin_level_df, new_row)
   }
 
-  return(pollen_level_df)
+  return(pollin_level_df)
 }

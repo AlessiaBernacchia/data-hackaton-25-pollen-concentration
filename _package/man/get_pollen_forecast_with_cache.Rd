@@ -2,27 +2,20 @@
 % Please edit documentation in R/read_pollen_with_cache.R
 \name{get_pollen_forecast_with_cache}
 \alias{get_pollen_forecast_with_cache}
-\title{Read data from the API, uses caching}
+\title{Read data from the API (no caching)}
 \usage{
-get_pollen_forecast_with_cache(
-  latitude,
-  longitude,
-  PATH = "pollen_cache/pollen_\%.4f_\%.4f_\%s.rds"
-)
+get_pollen_forecast_with_cache(latitude, longitude)
 }
 \arguments{
 \item{latitude}{Latitude of the location}
 
 \item{longitude}{Longitude of the location}
-
-\item{PATH}{path to the cache}
 }
 \value{
 A data.frame with pollen forecast data
 }
 \description{
-Checks if a file with the requested data exists, if so it uses that file to return the requested data,
-otherwise it makes an API call.
+Fetches pollen forecast data from the API for the given location.
 }
 \examples{
 latitude <- 47.3769

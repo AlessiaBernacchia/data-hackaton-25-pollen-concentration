@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^pollen_cache$
+^pollen_cache/.*$
+^.*\.RData$
+^.*\.Rhistory$

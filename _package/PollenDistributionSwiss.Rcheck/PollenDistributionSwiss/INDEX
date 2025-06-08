@@ -1,0 +1,8 @@
+compare_pollen_levels   Compare pollen levels between two cities
+get_pollen_for_list_cities
+                        Get data pollen of a given city
+get_pollen_forecast     Getting the pollen data from the API
+get_pollen_forecast_with_cache
+                        Read data from the API (no caching)
+plot_most_canton        Plot the Pollins in the Swiss Map
+plot_specific_pollen    Calculation of average pollen by canton

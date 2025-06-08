@@ -11,7 +11,7 @@
 #'
 #' @name compare_pollen_levels
 #'
-#' @example
+#' @examples
 #' city1_name <- "Zurich"
 #' city1_lat <- 47.3769
 #' city1_lon <- 8.5417

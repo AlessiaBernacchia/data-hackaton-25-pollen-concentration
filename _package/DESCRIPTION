@@ -47,6 +47,7 @@ Imports:
     readr,
     tibble,
     magrittr,
-    terra
+    terra,
+    utils
 LazyData: true
 RoxygenNote: 7.3.2

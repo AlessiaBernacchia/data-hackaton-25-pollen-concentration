@@ -1,0 +1,53 @@
+Package: PollenDistributionSwiss
+Type: Package
+Title: Analyzing and Visualizing Pollen Distribution in Switzerland
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "William", "Ambrosetti",
+      email = "william.ambrosetti@student.supsi.ch",
+      role = c("aut", "cre")
+    ),
+    person(
+      "Alessia", "Bernacchia",
+      email = "alessia.bernacchia@student.supsi.ch",
+      role = "aut"
+    ),
+    person(
+      "Alessio", "Carnevale",
+      email = "alessio.carnevale@student.supsi.ch",
+      role = "aut"
+    ),
+    person(
+      "Fernandez", "Sergio",
+      email = "sergio.fernandezdiz@student.supsi.ch",
+      role = "aut"
+    ),
+    person(
+      "Federico", "Gritti",
+      email = "federico.gritti@student.supsi.ch",
+      role = "aut"
+    )
+  )
+Description: More about what it does (maybe more than one line).
+    Continuation lines should be indented.
+License: GPL (>= 3)
+Encoding: UTF-8
+Imports:
+    ggplot2,
+    dplyr,
+    sf,
+    tidyr,
+    httr,
+    jsonlite,
+    httr2,
+    roxygen2,
+    testthat,
+    knitr,
+    readr,
+    tibble,
+    magrittr,
+    terra,
+    utils
+LazyData: true
+RoxygenNote: 7.3.2

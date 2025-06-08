@@ -32,3 +32,14 @@ A string with the name of the city that has the least pollen
 \description{
 Compare pollen levels between two cities
 }
+\examples{
+city1_name <- "Zurich"
+city1_lat <- 47.3769
+city1_lon <- 8.5417
+
+city2_name <- "Geneva"
+city2_lat <- 46.2044
+city2_lon <- 6.1432
+result <- compare_pollen_levels(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon)
+
+}

@@ -15,12 +15,12 @@ get_pollen_forecast(latitude, longitude)
 A data.frame with pollen forecast data
 }
 \description{
-Getting the pollen data from the API
+Load the forecast data about pollution of today, in the given latitude and longitude.
 }
 \examples{
 latitude <- 47.3769
 longitude <- 8.5417
 
- df_test <- get_pollen_forecast(latitude, longitude)
+df_test <- get_pollen_forecast(latitude, longitude)
 
 }

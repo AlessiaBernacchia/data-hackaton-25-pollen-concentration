@@ -19,13 +19,10 @@
 #'
 #' @export
 
-<<<<<<< Updated upstream
-get_pollen_forecast_with_cache <- function(latitude, longitude, PATH="pollen_cache/pollen_%.4f_%.4f_%s.rds") {
-=======
 get_pollen_forecast_with_cache <- function(latitude, longitude) {
->>>>>>> Stashed changes
   dir.create("pollen_cache", showWarnings = FALSE)  # create cache dir if missing
   today <- Sys.Date()
+  PATH <- "pollen_cache/pollen_%.4f_%.4f_%s.rds"
   fname <- sprintf(PATH, latitude, longitude, today)
 
   # If cached file exists, read and return

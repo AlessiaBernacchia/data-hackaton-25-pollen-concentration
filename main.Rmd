@@ -1,102 +1,187 @@
 ---
 title: "Swiss Pollen Forecast Analysis"
-author: "William Ambrosetti"
+author: "PollenDistributionSwiss Team"
 output: html_document
 ---
 
-## Introduction
-
-This R Markdown document showcases various functions related to pollen forecast analysis. The following functions are demonstrated:
-
-- `get_pollen_forecast_with_cache()`: Fetches pollen data for a given location, caching the results for faster future requests.
-- `get_pollin_for_list_cities()`: Retrieves pollen data for multiple cities and combines them into one data frame.
-- `plot_specific_pollen()`: Creates a plot for a specific pollen type (e.g., tree, grass, or weed).
-- `plot_most_canton()`: Visualizes which canton has the most pollen across all cities.
-- `compare_pollen_levels()`: Compares the pollen levels between two cities and identifies which one has the least pollen.
-
-## Function 1: `get_pollen_forecast_with_cache()`
-
-### Description
-
-This function retrieves pollen data for a specific latitude and longitude, with caching for faster future requests. The cache ensures that if the data has already been fetched recently, an API call is avoided.
-
-```{r}
-devtools::install("R/")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-```{r get_pollen_forecast_with_cache}
+## Introduction
+
+This R Markdown document showcases the **PollenDistributionSwiss** R package for analyzing pollen forecasts across Switzerland. The package provides functions to:
+
+-   Fetch real-time pollen data from Google's Pollen API
+-   Create beautiful visualizations on Swiss maps
+-   Compare pollen levels between cities
+-   Cache data to improve performance
+
+## Setup
+
+Load the package and required libraries:
+
+```{r load_package}
+# Load required libraries
+#suppressPackageStartupMessages({
+ # library(devtools)
+  #library(dplyr)
+  #library(ggplot2)
+  #library(httr2)
+  #library(readr)
+  #library(tibble)
+#})
+
+# Load the PollenDistributionSwiss package
+# devtools::load_all(".", quiet = TRUE)
+# sf and terra needs to be insatlled a priori since the installation differs from win/mac/linux
+install.packages("./PollenDistributionSwiss_0.1.0.tar.gz", repos = NULL, type = "source")
+
+```
+
+## Function 1: Get Pollen Forecast for Single Location
+
+Fetch pollen data for Zurich using coordinates:
+
+```{r get_single_forecast}
 # Example coordinates for Zurich
 latitude <- 47.3769
 longitude <- 8.5417
 
-# Call the function
-df_pollen <- get_pollen_forecast_with_cache(latitude, longitude)
-
-# Show the result
-head(df_pollen)
+# Get pollen forecast
+zurich_pollen <- get_pollen_forecast(latitude, longitude)
+print(zurich_pollen)
 ```
 
-```{r get_pollin_for_list_cities}
-# Example list of cities with coordinates
-city_list <- data.frame(
-  city_name = c("Zurich", "Geneva", "Bern"),
-  latitude = c(47.3769, 46.2044, 46.9481),
-  longitude = c(8.5417, 6.1432, 7.4474)
+## Function 2: Get Pollen Forecast with Caching
+
+Same data but with caching for improved performance:
+
+```{r get_cached_forecast}
+# Get pollen forecast with caching
+zurich_cached <- get_pollen_forecast_with_cache(latitude, longitude)
+print(zurich_cached)
+```
+
+## Function 3: Get Pollen Data for Multiple Swiss Cities
+
+Retrieve pollen data for multiple cities at once:
+
+```{r get_multiple_cities}
+# List of Swiss cities
+swiss_cities <- c("Zurich", "Geneva", "Bern", "Basel", "Lausanne")
+
+# Get pollen data for all cities
+cities_pollen <- get_pollin_for_list_cities(swiss_cities)
+print(cities_pollen)
+```
+
+## Function 4: Compare Pollen Levels Between Cities
+
+Compare pollen levels between Zurich and Geneva:
+
+```{r compare_cities}
+# Compare Zurich vs Geneva
+comparison_result <- compare_pollen_levels(
+  "Zurich", "Geneva", 
+  47.3769, 8.5417,   # Zurich coordinates
+  46.2044, 6.1432    # Geneva coordinates
 )
 
-# Call the function
-df_all_cities <- get_pollin_for_list_cities(city_list, "SwissCities.csv")
-
-# Show the result
-head(df_all_cities)
+cat("Comparison result:", comparison_result)
 ```
 
-```{r plot_specific_pollen}
-# Example pollen data frame (you can replace this with actual data)
-plot_specific_pollen(df_pollen, pollen_type = "tree")
+## Function 5: Visualize Grass Pollen Distribution
+
+Create a map showing grass pollen levels across Swiss cantons:
+
+```{r grass_pollen_map}
+if(nrow(cities_pollen) > 0) {
+  grass_plot <- average_pollen_by_canton(cities_pollen, pollen_type = "grass")
+  print(grass_plot)
+} else {
+  cat("No data available for visualization")
+}
 ```
 
-```{r plot_most_canton}
-# Example pollen data frame
-plot_most_canton(df_pollen)
+## Function 6: Visualize Tree Pollen Distribution
+
+Create a map showing tree pollen levels:
+
+```{r tree_pollen_map}
+if(nrow(cities_pollen) > 0) {
+  tree_plot <- average_pollen_by_canton(cities_pollen, pollen_type = "tree")
+  print(tree_plot)
+}
 ```
 
-```{r compare_pollen_levels}
-# Example coordinates for two cities
-city1_name <- "Zurich"
-city1_lat <- 47.3769
-city1_lon <- 8.5417
+## Function 7: Visualize Weed Pollen Distribution
 
-city2_name <- "Geneva"
-city2_lat <- 46.2044
-city2_lon <- 6.1432
+Create a map showing weed pollen levels:
 
-# Call the function to compare
-result <- compare_pollen_levels(city1_name, city2_name, city1_lat, city1_lon, city2_lat, city2_lon)
-result
+```{r weed_pollen_map}
+if(nrow(cities_pollen) > 0) {
+  weed_plot <- average_pollen_by_canton(cities_pollen, pollen_type = "weed")
+  print(weed_plot)
+}
 ```
 
+## Function 8: Dominant Pollen Type by Canton
 
-### Key Elements in the R Markdown:
-1. **YAML Header**:
-   - The header section at the top sets the title and output type (in this case, an HTML document). You can adjust this to your preference (PDF, Word, etc.).
-   
-2. **Function Documentation**:
-   - For each function, I’ve included a **description** of what the function does, followed by an **example** that shows how to use it.
-   
-3. **R Code Chunks**:
-   - Each example is enclosed in an R code chunk using triple backticks with `{r}`. This allows R to execute the code and show the results (data frames, plots, etc.) inline in the document.
+Show which pollen type is dominant in each canton:
 
-4. **Plots and Visualizations**:
-   - The `plot_specific_pollen()` and `plot_most_canton()` functions generate visualizations. These can be graphs or maps, depending on your function's implementation.
+```{r dominant_pollen_map}
+if(nrow(cities_pollen) > 0) {
+  dominant_plot <- plot_dominant_pollin(cities_pollen)
+  print(dominant_plot)
+}
+```
 
-### Rendering the R Markdown:
-1. **Knit the document**: Once your R Markdown file is complete, you can "knit" it by clicking the **Knit** button in RStudio, which will generate the HTML output.
-   
-2. **Ensure Packages**: Make sure you have installed any necessary packages (like `ggplot2`, `httr2`, `dplyr`, etc.) using `install.packages()` if needed.
+## Summary Statistics
 
-### Additional Notes:
-- **Function Output**: For functions like `plot_specific_pollen()` and `plot_most_canton()`, the plots will be displayed directly in the knitted output.
-- **Cache Handling**: When showcasing caching in `get_pollen_forecast_with_cache()`, ensure that the cache file exists or that the function is capable of handling first-time calls.
+Display summary statistics from the collected data:
 
-Let me know if you need help with any specific part of this, or if you'd like me to refine any sections further!
+```{r summary_stats}
+if(nrow(cities_pollen) > 0) {
+  cat("=== POLLEN SUMMARY STATISTICS ===\n")
+  cat("Cities analyzed:", nrow(cities_pollen), "\n")
+  cat("Cantons covered:", n_distinct(cities_pollen$canton), "\n")
+  cat("Average grass pollen:", round(mean(cities_pollen$grass_pollin, na.rm = TRUE), 2), "\n")
+  cat("Average tree pollen:", round(mean(cities_pollen$tree_pollin, na.rm = TRUE), 2), "\n")
+  cat("Average weed pollen:", round(mean(cities_pollen$weed_pollin, na.rm = TRUE), 2), "\n")
+  
+  # Find cities with highest pollen levels
+  max_grass_city <- cities_pollen$city[which.max(cities_pollen$grass_pollin)]
+  max_tree_city <- cities_pollen$city[which.max(cities_pollen$tree_pollin)]
+  max_weed_city <- cities_pollen$city[which.max(cities_pollen$weed_pollin)]
+  
+  cat("Highest grass pollen in:", max_grass_city, "\n")
+  cat("Highest tree pollen in:", max_tree_city, "\n")
+  cat("Highest weed pollen in:", max_weed_city, "\n")
+  cat("Data collected on:", Sys.Date(), "\n")
+}
+```
+
+## Conclusion
+
+The **PollenDistributionSwiss** package provides a comprehensive toolkit for analyzing pollen forecasts across Switzerland. It combines real-time API data with beautiful visualizations to help understand pollen distribution patterns.
+
+### Key Features:
+
+-   ✅ Real-time data from Google Pollen API
+-   ✅ Smart caching for improved performance
+-   ✅ Beautiful Swiss map visualizations
+-   ✅ Multi-city data collection
+-   ✅ Statistical analysis and comparisons
+-   ✅ Support for grass, tree, and weed pollen types
+
+### Use Cases:
+
+-   Allergy research and monitoring
+-   Public health analysis
+-   Environmental studies
+-   Personal allergy management
+
+------------------------------------------------------------------------
+
+*Package created for Data Hackathon 2025*

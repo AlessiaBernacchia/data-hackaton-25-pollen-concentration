@@ -20,12 +20,12 @@
 #'                  tree_pollin = c(10, 20),
 #'                  weed_pollin = c(5, 15))
 #'
-#' plot_specific_pollen(df, pollen_type = "grass")
+#' average_pollen_by_canton(df, pollen_type = "grass")
 #'
 #'
 #' @export
 
-plot_specific_pollen <- function(polline_df, pollen_type = "grass", PATH='2025_GEOM_TK') {
+average_pollen_by_canton <- function(polline_df, pollen_type = "grass", PATH='2025_GEOM_TK') {
   world_path = paste0(PATH, '/01_INST/Gesamtfla╠êche_gf/K4_kant20220101_gf/K4kant20220101gf_ch2007Poly.shp')
   l_path = paste0(PATH, '/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd11_ch2007Poly.shp' )
 

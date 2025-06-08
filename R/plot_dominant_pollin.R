@@ -7,17 +7,20 @@
 #' @description Plots the distribution of the pollines across the cities given
 #'
 #' @examples
-#' city_df <- get_pollen_for_list_cities(c("Geneva", "Lugano"))
-#' plot_most_canton(city_df)
+#' city_df <- get_pollin_for_list_cities(c("Geneva", "Lugano"))
+#' plot_dominant_pollin(city_df)
 #'
 #' @export
 
+plot_dominant_pollin <- function(polline_df, PATH='2025_GEOM_TK') {
+  world_path = paste0(PATH, '/01_INST/Gesamtfla╠êche_gf/K4_kant20220101_gf/K4kant20220101gf_ch2007Poly.shp')
+  l1_path = paste0(PATH, '/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd11_ch2007Poly.shp')
+  l2_path = paste0(PATH, '/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd22_ch2007Poly.shp')
 
-world <- sf::read_sf('2025_GEOM_TK/01_INST/Gesamtfla╠êche_gf/K4_kant20220101_gf/K4kant20220101gf_ch2007Poly.shp')
-l1    <- sf::st_read('2025_GEOM_TK/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd11_ch2007Poly.shp')
-l2    <- sf::st_read('2025_GEOM_TK/00_TOPO/K4_seenyyyymmdd/k4seenyyyymmdd22_ch2007Poly.shp')
+  world <- sf::read_sf(world_path)
+  l1    <- sf::st_read(l1_path)
+  l2    <- sf::st_read(l2_path)
 
-plot_most_canton <- function(polline_df) {
   dominant_polline_df <- polline_df |>
     tidyr::pivot_longer(cols = dplyr::ends_with("_pollin"), names_to = "type", values_to = "val") |>
     dplyr::mutate(type = gsub("_pollin", "", type)) |>
